@@ -1,0 +1,93 @@
+<h1>Hayden</h1>
+<div>
+  <a routerLink="/home">首页</a>
+  <a routerLink="/booklist">定场</a>
+  <a routerLink="/race">赛事</a>
+</div>
+<router-outlet></router-outlet>
+<!-- 路由容器 -->
+
+
+<!-- <p>msg</p> -->
+<p [innerHTML]="msg"></p>
+<img src="{{url}}" alt="">
+<img bind-src="url" alt="">
+<h3>表单绑定</h3>
+<p>手动双向绑定<br>
+  <input type="text" [value]="msg" (input)="msg=$event.target.value">
+</p>
+<p>自动双向绑定 <br>
+  <input type="text" [(ngModel)]="msg">
+</p>
+<p>checkbox绑定</p>
+<p><input type="checkbox" [(ngModel)]="sel">阅读并同意条款</p>
+<p><button [disabled]="!sel">登录</button></p>
+
+<p>下拉 -> {{hobby}}</p>
+<select [(ngModel)]="hobby">
+  <option value="A1">A1</option>
+  <option value="B2">B2</option>
+  <option value="C3">C3</option>
+</select>
+
+<div *ngIf="flag">我喜欢if</div>
+<div>
+<div *ngIf="flag else blockif">我喜欢if</div>
+<ng-template #blockif>我爱else</ng-template>
+</div>
+<ul>
+  <li *ngFor="let item of list; 
+              let i = index"
+      (click)="setCurrent($event, i)"
+      [ngClass]="{'active':i==current}">
+    {{i+1}}-*-{{item}}
+  </li>
+</ul>
+
+<h3>事件绑定</h3>
+<button (click)="flag=!flag">变身</button>
+<button (click)="msg='神奇文本'">神奇文本</button>
+<button (click)="msg=$event.target.innerHTML">事件参数</button>
+<button (click)="showMsg($event)">响应函数</button>
+
+<h3>类与样式绑定</h3>
+<!-- <p [class]="myClass">夏天来了</p> -->
+<p [ngClass]="{'active':flag}">冬天来了</p>
+<p [class.active]="flag">春天来了</p>
+<p [style.color]="flag?'green':'red'">秋天来了</p>
+<p [ngStyle]="mystyle">夏天来了</p>
+
+<h3>标签引用</h3>
+<input type="text" #phone > <br>
+<button (click)="msg=phone.value; phone.value=''">修改</button>
+<p>时间:{{myDate}}</p>
+<p>时间:{{myDate|date:'yy-MM-dd HH:mm:ss'}}</p>
+<p>json:{{obj|json}}</p>
+<p>数字: {{3.1415926|number:'1.0-0'}}</p>
+<ul>
+  <li *ngFor="let item of list|slice:0:2; 
+              let i = index"
+      >
+    {{i+1}}->{{item}}
+  </li>
+</ul>
+<style>
+  .active{color:palegoldenrod}
+</style>
+<app-child [list]="list" (selNum)="setType($event)"></app-child>
+<h3>选中的运动类型为: {{selectType}}</h3>
+<app-child 
+#child2
+[list]="area" 
+(selNum)="selectArea=area[$event]||'全部'" 
+>
+  <p>插槽内容</p>
+  <p>This is slot content</p>
+</app-child>
+<h3>选中的区域为: {{selectArea}}</h3>
+<h3>ref去获取数据:{{child2.list[child2.current]}}</h3>
+
+<h1>
+  app使用服务 名称{{SearchService.name}}
+  <button (click)="SearchService.setName('Hay--->>>')">修改数据</button>
+</h1>

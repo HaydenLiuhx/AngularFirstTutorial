@@ -1,0 +1,10 @@
+<p>booklist works!</p>
+<a routerLink="/stadium/abc">场馆abc</a> <br>
+<a routerLink="/stadium/123">场馆123</a>
+<h1>订场</h1>
+<div>
+    <a *ngFor="let item of list">
+        <img [src]="item.imageList[0].imgageUrl" width="200"/>
+        <h3>{{item.stadiumItemName}}</h3>
+    </a>
+</div>

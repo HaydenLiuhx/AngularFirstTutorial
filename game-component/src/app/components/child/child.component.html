@@ -1,0 +1,30 @@
+
+<h3>child使用服务{{SearchService.name}}
+    <button (click)="SearchService.setName(list[0])">修改数据</button>
+</h3>
+<div class="inline">
+    <div class="inline item" [ngClass]="{'active':current===null}" (click)="setCurrent(null)">
+        全部
+    </div>
+    <div class="inline item" *ngFor="let item of list; 
+                    let i = index" [ngClass]="{'active':i===current}" (click)="setCurrent(i)">
+        {{i+1}}->{{item}}
+    </div>
+    <ng-content ></ng-content>
+</div>
+<style>
+    .inline {
+        display: inline-block;
+    }
+
+    .item.active {
+        background-color: orangered;
+        color: #777
+    }
+
+    .item {
+        padding: 10px;
+        margin: 15px;
+        color: #777
+    }
+</style>
