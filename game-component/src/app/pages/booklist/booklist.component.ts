@@ -18,7 +18,7 @@ list=[]
   getList(){
     this.http.get("http://localhost:4000/api/users")
     .subscribe((res:any)=>{
-      console.log(res.data.dataList)
+      console.log(res.data.dataList);
       this.list = res.data.dataList
     })
   }
